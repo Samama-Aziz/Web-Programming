@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Signup Form</title>
+</head>
+<body>
+    <div class="container mt-5">
+        <form id="signupForm" onsubmit="return validateForm()">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" class="form-control" id="username" required>
+                <small class="text-danger" id="usernameError"></small>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" class="form-control" id="password" required>
+                <small class="text-danger" id="passwordError"></small>
+            </div>
+            <div class="form-group">
+                <label for="birthdate">Birthdate:</label>
+                <input type="date" class="form-control" id="birthdate" required>
+                <small class="text-danger" id="birthdateError"></small>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" required>
+                <small class="text-danger" id="emailError"></small>
+            </div>
+            <div class="form-group">
+                <label for="gender">Gender:</label>
+                <select class="form-control" id="gender" required>
+                    <option value="">Select</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+                <small class="text-danger" id="genderError"></small>
+            </div>
+            <div class="form-group">
+                <label for="phoneNumber">Phone Number:</label>
+                <input type="tel" class="form-control" id="phoneNumber" required>
+                <small class="text-danger" id="phoneNumberError"></small>
+            </div>
+            <div class="form-group">
+                <label for="zipCode">Zip Code:</label>
+                <input type="text" class="form-control" id="zipCode" required>
+                <small class="text-danger" id="zipCodeError"></small>
+            </div>
+            <div class="form-group">
+                <label for="country">Country:</label>
+                <input type="text" class="form-control" id="country" required>
+                <small class="text-danger" id="countryError"></small>
+            </div>
+            <button type="submit" class="btn btn-primary">Sign Up</button>
+        </form>
+    </div>
+
+    <script>
+        function validateForm() {
+            // Reset error messages
+            resetErrors();
+
+            // Validation logic goes here
+            let valid = true;
+
+            // Validate username (minimum 3 characters)
+            const username = document.getElementById('username').value;
+            if (username.length < 3) {
+                document.getElementById('usernameError').innerText = 'Username must be at least 3 characters';
+                valid = false;
+            }
+
+            // Validate password (minimum 6 characters)
+            const password = document.getElementById('password').value;
+            if (password.length < 6) {
+                document.getElementById('passwordError').innerText = 'Password must be at least 6 characters';
+                valid = false;
+            }
+
+            // Validate birthdate (optional)
+            // Add your birthdate validation logic here
+
+            // Validate email using a simple pattern
+            const email = document.getElementById('email').value;
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                document.getElementById('emailError').innerText = 'Invalid email format';
+                valid = false;
+            }
+
+            // Validate gender (must be selected)
+            const gender = document.getElementById('gender').value;
+            if (gender === '') {
+                document.getElementById('genderError').innerText = 'Please select a gender';
+                valid = false;
+            }
+
+            // Validate phone number using a simple pattern (optional)
+            // Add your phone number validation logic here
+
+            // Validate zip code (optional)
+            // Add your zip code validation logic here
+
+            // Validate country (optional)
+            // Add your country validation logic here
+
+            return valid;
+        }
+
+        function resetErrors() {
+            const errorElements = document.querySelectorAll('.text-danger');
+            errorElements.forEach((element) => {
+                element.innerText = '';
+            });
+        }
+    </script>
+</body>
+</html>
