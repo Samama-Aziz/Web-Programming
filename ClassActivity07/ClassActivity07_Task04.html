@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remove Table Row</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>John Doe</td>
+                <td><button class="btn btn-danger remove-row">Remove</button></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Ali</td>
+                <td><button class="btn btn-danger remove-row">Remove</button></td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Samama</td>
+                <td><button class="btn btn-danger remove-row">Remove</button></td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Ali</td>
+                <td><button class="btn btn-danger remove-row">Remove</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    $(document).ready(function(){
+        $('.remove-row').on('click', function(){
+            $(this).closest('tr').remove();
+        });
+    });
+</script>
+
+</body>
+</html>
