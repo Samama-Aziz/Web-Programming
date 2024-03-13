@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Left-to-Right Animation</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        #movingBall {
+            width: 50px;
+            height: 50px;
+            background-color: #3498db;
+            border-radius: 50%;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5">
+    <div id="movingBall"></div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        function animateLeftToRight() {
+            $('#movingBall').animate({
+                left: '100%',
+            }, 8000, 'linear', function () {
+                $('#movingBall').css('left', '0');
+                animateLeftToRight();
+            });
+        }
+
+        animateLeftToRight();
+    });
+</script>
+
+</body>
+</html>
