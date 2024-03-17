@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 400px;
+            margin: 105px auto 0 auto; /* Adjusted margin-top to 105px and consolidated other margins */
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+        h1 {
+            font-size: 24px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0; /* Adjusted margin */
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .weather-info {
+            margin-top: 20px;
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Weather App</h1>
+        <input type="text" id="locationInput" placeholder="Enter a city">
+        <button id="searchButton" class="btn btn-primary">Search</button>
+        <div class="weather-info">
+            <h2 id="location" class="mb-3"></h2>
+            <table id="weatherTable">
+                <tr>
+                    <th>City</th>
+                    <th>Temperature</th>
+                    <th>Description</th>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <script>
+        const apiKey = '36628e85d73142742fece9af7a2da6e9'; // Replace with your actual API key
+        const apiUrl = 'https://api.openweathermap.org/data/2.5/weather';
+        const locationInput = document.getElementById('locationInput');
+        const searchButton = document.getElementById('searchButton');
+        const locationElement = document.getElementById('location');
+        const tableElement = document.getElementById('weatherTable');
+
+        searchButton.addEventListener('click', () => {
+            const location = locationInput.value;
+            if (location) {
+                fetchWeather(location);
+            }
+        });
+
+        async function fetchWeather(location) {
+            try {
+                const url = `${apiUrl}?q=${location}&appid=${apiKey}&units=metric`;
+                const response = await fetch(url);
+                const data = await response.json();
+
+                if (data.main && data.main.temp !== undefined) {
+                    locationElement.textContent = data.name;
+
+                    // Create table row for weather data
+                    const row = document.createElement('tr');
+                    const cityCell = document.createElement('td');
+                    const tempCell = document.createElement('td');
+                    const descCell = document.createElement('td');
+                    cityCell.textContent = data.name;
+                    tempCell.textContent = `${Math.round(data.main.temp)}°C`;
+                    descCell.textContent = data.weather[0].description;
+                    row.appendChild(cityCell);
+                    row.appendChild(tempCell);
+                    row.appendChild(descCell);
+                    tableElement.appendChild(row);
+                } else {
+                    console.error('Invalid data received from API:', data);
+                }
+            } catch (error) {
+                console.error('Error fetching weather data:', error);
+            }
+        }
+    </script>
+</body>
+</html>
